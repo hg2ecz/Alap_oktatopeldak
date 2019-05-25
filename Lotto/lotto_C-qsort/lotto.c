@@ -4,6 +4,16 @@
 
 #define MAXNUM 5
 
+// alább a qsort() hívja meg.
+static int qsort_compare(const void *p1_in, const void *p2_in) {
+    const int *p1 = (const int *)p1_in;
+    const int *p2 = (const int *)p2_in;
+    if      (*p1 > *p2) return 1;
+    else if (*p1 < *p2) return -1;
+    else                return 0;
+}
+
+
 int main() {
     int num = 0;
     srand(time(NULL));
@@ -22,16 +32,8 @@ int main() {
         if (nincs_ilyen) lottoszam[num++] = next;
     }
 
-    // rendezzük növekvő sorrendbe - másik példa qsort lesz
-    for (int i=0; i<num-1; i++) {
-        for (int j=num-1; j >= i; j--) {
-            if (lottoszam[j] > lottoszam[j+1]) {
-                int tmp = lottoszam[j];
-                lottoszam[j] = lottoszam[j+1];
-                lottoszam[j+1] = tmp;
-            }
-        }
-    }
+    // rendezzük növekvő sorrendbe - qsorttal
+    qsort(lottoszam, num, sizeof(int), qsort_compare);
 
     // kiírhatjuk
     for (int i=0; i<num; i++) printf("%d ", lottoszam[i]);
