@@ -1,4 +1,4 @@
-// Help: https://github.com/alexcrichton/curl-rust
+// Help: https://docs.rs/curl/
 
 use std::io::{stdout, Write};
 use curl::easy::Easy;
